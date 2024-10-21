@@ -13,6 +13,7 @@ export async function PUT(req) {
   const { ticket_number, note_status, remarks } = body;
 
 
+
   if (!ticket_number) {
     return Response.json({ message: "Ticket number are required!" }, { status: 400 });
   }

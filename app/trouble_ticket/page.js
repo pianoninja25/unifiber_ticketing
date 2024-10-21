@@ -45,7 +45,7 @@ const TroubleTicket = ({ user }) => {
       {!loading && <CSVLink 
         data={datas.data}
         filename={`Trouble Ticket - ${user} - ${moment().format('YYYYMMDD HHmmss')}.csv`}
-        className="absolute right-12 top-28 flex items-center gap-2 px-3 py-1 m-2 rounded-lg shadow-sm bg-green-500/20 hover:bg-green-500/80"
+        className="absolute right-12 top-28 flex items-center gap-2 px-3 py-1 m-2 rounded-lg shadow-sm bg-green-500/80 hover:bg-green-500"
       >
         <h1 className="font-poppins text-sm text-white">Download</h1>
         <FaDownload size={12} color="white" />
