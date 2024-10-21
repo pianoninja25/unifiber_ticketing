@@ -4,7 +4,9 @@ import React, { useEffect, useState } from 'react'
 import { CSVLink } from 'react-csv';
 import { FaDownload } from "react-icons/fa6";
 
+
 import TicketTable from '../components/table'
+import moment from 'moment';
 
 
 const TroubleTicket = ({ user }) => {
@@ -19,7 +21,6 @@ const TroubleTicket = ({ user }) => {
         const res = await fetch(`/api/trouble_ticket?user=${user}`)
         const data = await res.json()
         setDatas(data)
-        console.log(data)
       } catch (error) {
         console.error('Error fetching data:', error)
       } finally {
@@ -43,7 +44,7 @@ const TroubleTicket = ({ user }) => {
 
       {!loading && <CSVLink 
         data={datas.data}
-        filename={`TEST ${user}.csv`}
+        filename={`Trouble Ticket - ${user} - ${moment().format('YYYYMMDD HHmmss')}.csv`}
         className="absolute right-12 top-28 flex items-center gap-2 px-3 py-1 m-2 rounded-lg shadow-sm bg-green-500/20 hover:bg-green-500/80"
       >
         <h1 className="font-poppins text-sm text-white">Download</h1>

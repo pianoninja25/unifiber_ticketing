@@ -10,16 +10,18 @@ export async function PUT(req) {
   }
 
   const body = await req.json();
-  const { ticket_number, note_status } = body;
+  const { ticket_number, note_status, remarks } = body;
 
 
-  if (!ticket_number || !note_status) {
-    return Response.json({ message: "Ticket number and note status are required!" }, { status: 400 });
+  if (!ticket_number) {
+    return Response.json({ message: "Ticket number are required!" }, { status: 400 });
+  }
+  if (!note_status) {
+    return Response.json({ message: "Status are required!" }, { status: 400 });
   }
 
 
-  const queryStr = `CALL update_ticket('${ticket_number}', '${note_status}');`; 
-  console.log(queryStr)
+  const queryStr = `CALL update_ticket('${ticket_number}', '${note_status}', '${remarks}');`; 
 
   try {
     const conn = await OperationDB('dboperation').getConnection();

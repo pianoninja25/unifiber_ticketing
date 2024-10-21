@@ -8,7 +8,6 @@ export async function GET(req) {
 
 
   let queryStr = `CALL select_ticket('${puser}');`
-  console.log(queryStr) 
 
   try {
     if(!session) {

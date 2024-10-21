@@ -1,13 +1,11 @@
 import { message } from 'antd';
 
-const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
 
-
-export async function handleNoteStatusChange(pticket_number, pnote_status) {
-  const updatedTicket = { ticket_number: pticket_number, note_status: pnote_status };
+export async function handleNoteStatusChange(pticket_number, pnote_status, premarks) {
+  const updatedTicket = { ticket_number: pticket_number, note_status: pnote_status, remarks: premarks };
   
   try {
-    const response = await fetch(`${baseUrl}/api/update_ticket`, {
+    const response = await fetch('/api/update_ticket', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

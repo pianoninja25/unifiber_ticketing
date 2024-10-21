@@ -30,6 +30,7 @@ const TicketTable = ({ datas, setTicketChange }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedTicket, setSelectedTicket] = useState(null);
 
+
   const handleFilterChange = (value) => {
     setSelectedFilter(value);
   };
@@ -47,7 +48,8 @@ const TicketTable = ({ datas, setTicketChange }) => {
       item.customer_name.toLowerCase().includes(searchValue.toLowerCase()) ||
       item.account_number.toLowerCase().includes(searchValue.toLowerCase()) ||
       item.kota.toLowerCase().includes(searchValue.toLowerCase()) ||
-      item.company.toLowerCase().includes(searchValue.toLowerCase());
+      item.company.toLowerCase().includes(searchValue.toLowerCase()) ||
+      item.note_status.toLowerCase().includes(searchValue.toLowerCase());
     return matchesFilter && matchesSearch;
   });
 
@@ -141,7 +143,7 @@ const TicketTable = ({ datas, setTicketChange }) => {
       ellipsis: true,
     },
     {
-      title: 'Kelurahan',
+      title: 'Ward',
       dataIndex: 'kelurahan',
       width: 150,
       ellipsis: true,
@@ -199,7 +201,7 @@ const TicketTable = ({ datas, setTicketChange }) => {
 
   return (
     <>
-      <div className=''>
+      <div>
         <Select 
           placeholder="Select filter" 
           onChange={handleFilterChange} 
@@ -212,6 +214,7 @@ const TicketTable = ({ datas, setTicketChange }) => {
           <Select.Option value="account_number">Customer ID</Select.Option>
           <Select.Option value="kota">City</Select.Option>
           <Select.Option value="company">Vendor</Select.Option>
+          <Select.Option value="note_status">Current Status</Select.Option>
           
           {/* Add more options as needed */}
         </Select>
@@ -221,10 +224,9 @@ const TicketTable = ({ datas, setTicketChange }) => {
           onChange={handleSearchChange} 
           style={{ marginBottom: 16, width: 200 }} 
         />
-
       </div>
 
-      <div className=''>
+      <div className='relative'>
         <Table
           bordered
           components={{
@@ -236,6 +238,13 @@ const TicketTable = ({ datas, setTicketChange }) => {
           dataSource={filteredData}
           rowKey="ticket_number"
         />
+
+        <p className='absolute bottom-6 left-4 text-xs text-slate-400'>
+          Total Ticket : <b>{calculateTicketSummary(datas).totalTicket}</b> &nbsp;&nbsp;
+          Open: <b>{calculateTicketSummary(datas).openTicket}</b> &nbsp;&nbsp;
+          Reschedule: <b>{calculateTicketSummary(datas).rescheduleTicket}</b> &nbsp;&nbsp;
+          Done: <b>{calculateTicketSummary(datas).doneTicket}</b>&nbsp;
+        </p>
 
         <TicketModal
           isModalVisible={isModalVisible}
@@ -249,3 +258,34 @@ const TicketTable = ({ datas, setTicketChange }) => {
 };
 
 export default TicketTable;
+
+
+
+
+
+
+
+
+function calculateTicketSummary(tickets) {
+  let totalTicket = tickets?.length;
+  let openTicket = 0;
+  let doneTicket = 0;
+  let rescheduleTicket = 0;
+
+  tickets?.forEach(ticket => {
+    if (ticket.note_status === 'Open') {
+      openTicket++;
+    } else if (ticket.note_status === 'Done') {
+      doneTicket++;
+    } else if (ticket.note_status === 'Reschedule') {
+      rescheduleTicket++;
+    }
+  });
+
+  return {
+    totalTicket,
+    openTicket,
+    doneTicket,
+    rescheduleTicket
+  };
+}
