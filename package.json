@@ -1,0 +1,30 @@
+{
+  "name": "unifiber_ticketing",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "turbo": "next dev --turbo -p 3003",
+    "build": "next build",
+    "start": "next start -p 3003",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "antd": "^5.21.4",
+    "moment": "^2.30.1",
+    "mysql2": "^3.9.2",
+    "next": "14.2.15",
+    "next-auth": "^4.24.8",
+    "react": "^18",
+    "react-csv": "^2.2.2",
+    "react-dom": "^18",
+    "react-icons": "^5.3.0",
+    "react-resizable": "^3.0.5"
+  },
+  "devDependencies": {
+    "eslint": "^8",
+    "eslint-config-next": "14.2.15",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1"
+  }
+}

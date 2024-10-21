@@ -3,8 +3,6 @@
 
 # Ignore environment files
 .env
-package.json
-
 
 # dependencies
 /node_modules
